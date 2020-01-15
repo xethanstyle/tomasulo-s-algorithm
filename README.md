@@ -23,3 +23,5 @@
 ![image](5.png "第二個cycle")
  <br/>  6.第3個cycle
 ![image](6.png "第三個cycle")
+ <br/>  7.第4個cycle
+![image](7.png "第四個cycle")
