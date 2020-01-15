@@ -17,4 +17,4 @@
  <br/>  4.第1個cycle
 ![image](4.png "第一個cycle")
  <br/>  5.第2個cycle
-![image](.png "第一個cycle")
+![image](5.png "第一個cycle")
