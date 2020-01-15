@@ -1,5 +1,5 @@
-# tomasulo-s-algorithm
-## 1.本程式為實作tomasulo-s-algorithm演算法
+# Tomasulo-s-algorithm
+## 1.本程式為實作Tomasulo-s-algorithm演算法
 * 使用語言 Java(JRE JavaSE-12)
 * 開發及編譯工具 Eclipse
 * 輸入方式 
