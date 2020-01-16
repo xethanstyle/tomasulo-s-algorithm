@@ -256,3 +256,20 @@ class REGS {
 		}
 		cycle = cycle + 1;
 	}</code></pre>
+<br/>  7. 197-214行:Dispatch_Table[0].ID = "ADD" , 如果是ADD Buffer為execute狀態
+ <pre><code>
+	else if ((Dispatch_Table[0].buffer.equals("execute"))) { // Dispatch_Table[0].ID = "ADD" , 如果是ADD Buffer為execute狀態
+		writeback_2(RSMul, RSAdd, Dispatch_Table, RATTable, RegTable, AddcyCount, cycle, ADD_cycle,SUB_cycle);
+		if ((!(Dispatch_Table[1].state.isBlank()) && (!(Dispatch_Table[1].buffer.equals("execute"))))							&& (!Dispatch_Table[1].state.isBlank())) { // //同個cycle，有可能RS ADD有inst可以準備excute
+			MulcyCount[0] = cycle;
+			Dispatch_Table[1].buffer = "execute";
+			Dispatch_Table[1].Inst = Dispatch_Table[1].state;
+			for (int i = 0; i < RSMul.length; i++) {
+				if (RSMul[i].ID.equals(Dispatch_Table[1].state)) {
+					RSMul[i].DISP = "Exec" + Integer.toString((cycle - MulcyCount[0] + 1));
+					break;
+				}
+		     }
+	      }
+		cycle = cycle + 1;
+	}</code></pre>
