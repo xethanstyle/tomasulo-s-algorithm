@@ -154,3 +154,28 @@ class REGS {
 
 	}
 }</code></pre>
+
+ * 程式106~292行:為主程式，說明如下
+  <br/>  1. 106~126行:由使用者輸入+、-、x、/指令運算所需cycle數
+ <pre><code>
+  public class tomasulo_algorithm {
+
+	public static void main(String[] args) {
+		int cycle = 1;
+		int ADD_cycle;
+		int SUB_cycle;
+		int MUL_cycle;
+		int DIV_cycle;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("請輸入 ADD cycle數 :  ");
+		ADD_cycle = sc.nextInt();
+		System.out.println();
+		System.out.print("請輸入 SUB cycle數 :  ");
+		SUB_cycle = sc.nextInt();
+		System.out.println();
+		System.out.print("請輸入 MUL cycle數 :  ");
+		MUL_cycle = sc.nextInt();
+		System.out.println();
+		System.out.print("請輸入 DIV cycle數 :  ");
+		DIV_cycle = sc.nextInt();
+		System.out.println();</code></pre>
