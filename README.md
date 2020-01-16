@@ -156,7 +156,7 @@ class REGS {
 }</code></pre>
 
  * 程式106-292行:為主程式，說明如下
-  <br/>  *106-126行:由使用者輸入+、-、x、/指令運算所需cycle數
+  <br/>  * 106-126行:由使用者輸入+、-、x、/指令運算所需cycle數
  <pre><code>
   public class tomasulo_algorithm {
 
@@ -180,7 +180,7 @@ class REGS {
 		DIV_cycle = sc.nextInt();
 		System.out.println();</code></pre>
  
-  <br/>  *127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
+  <br/>  * 127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
  <pre><code>
 		 Instruction Inst[] = new Instruction[4];
 		Inst[0] = new Instruction("INST1", "MUL", "F3", "F2", "F1", 0);
