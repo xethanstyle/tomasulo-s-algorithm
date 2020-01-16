@@ -41,3 +41,5 @@
 ![image](14.png "第十一個cycle")
 <br/>  15.第12個cycle
 ![image](15.png "第十二個cycle")
+<br/>  16.第13個cycle，以本範例，系統自動偵測無其他任何指令等待運算，自動結束運算
+![image](16.png "第十三個cycle")
