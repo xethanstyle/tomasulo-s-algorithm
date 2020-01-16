@@ -179,3 +179,13 @@ class REGS {
 		System.out.print("請輸入 DIV cycle數 :  ");
 		DIV_cycle = sc.nextInt();
 		System.out.println();</code></pre>
+ 
+  <br/>  2. 127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
+ <pre><code>
+		 Instruction Inst[] = new Instruction[4];
+		Inst[0] = new Instruction("INST1", "MUL", "F3", "F2", "F1", 0);
+		Inst[1] = new Instruction("INST2", "SUB", "F0", "F3", "F5", 0);
+		Inst[2] = new Instruction("INST3", "ADD", "F10", "F1", "F0", 0);
+		Inst[3] = new Instruction("INST4", "DIV", "F6", "F8", "F2", 0);
+
+		TreeSet RegSet = RegSet(Inst);</code></pre>
