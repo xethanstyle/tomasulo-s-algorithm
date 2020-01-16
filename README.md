@@ -10,7 +10,7 @@
  <br/>  5.本次執行案例系將ADD設為2cycle、SUB設為3cycle、MUL設為4cycle、DIV設為5cycle
  <br/>  6.本軟體共模擬IQ Table儲存指令、RS_ADD_Table設置三個空間大小、RS_MUL設置二個空間大小、Reg Table儲存暫存器實際數值(系統預設值自動採1~10亂數產生相關資料)、RAT Table、加減法、乘除法 Buffer暫存器各一個，將在下節實際執行結果畫面呈現。
  
- ## 2.執行結果如下(以紅色框框標註各cycle變化)
+ ## 2.執行結果如下(以紅色方框標註各cycle變化)
  <br/>  1.允許使用者自行輸入ADD(加)、SUB(減)、MUL(乘)、DIV(除)運作之cycle數
 ![image](1.png "執行結果_1")
  <br/>  2.使用者可由原始碼頁面輸入Instruction指令
@@ -31,3 +31,5 @@
 ![image](9.png "第六個cycle")
  <br/>  10.第7個cycle
 ![image](10.png "第七個cycle")
+ <br/>  11.第8個cycle
+![image](11.png "第八個cycle")
