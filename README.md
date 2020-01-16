@@ -212,16 +212,14 @@ class REGS {
 		boolean hasnext = true;
 
 		System.out.println("(初始狀態)  Cycel: 0");
-		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>
-		
+		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>		
 <br/>  4. 161-292行:以do..while運算結構，開始執行演算，說明如後
    <pre><code>
    	do {    程式段.....
 	        ........
 		...........
-		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>
-		
-<br/>  5. 162-177行:如果buffer有inst在執行的狀況，此狀況為ADD
+		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>		
+<br/>  5. 162-177行:如果buffer有inst在執行的狀況
    <pre><code>
    	System.out.println("Cycel: " + cycle);
 	if ((Dispatch_Table[1].buffer.equals("execute")) && (Dispatch_Table[0].buffer.equals("execute"))) { // 如果buffer有inst在執行的狀況，此狀況為ADD Buffer及MUL Buffer同時都為execute狀態
@@ -239,3 +237,22 @@ class REGS {
 	RSMul = dispatch_1(RSMul, Dispatch_Table); // 檢查RS MUL是否可dispatch
 	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 	} </code></pre>
+<br/>  6. 162-177行:如果buffer有inst在執行的狀況，此狀況為ADD Buffer "或" MUL Buffer為execute狀態
+ <pre><code>
+	else if ((Dispatch_Table[1].buffer.equals("execute")) || (Dispatch_Table[0].buffer.equals("execute"))) { // 如果buffer有inst在執行的狀況，此狀況為ADD Buffer "或"   MUL Buffer為execute狀態
+		if ((Dispatch_Table[1].buffer.equals("execute"))) { // Dispatch_Table[1].ID = "MUL" , 如果是MUL  Buffer為execute狀態
+			writeback_1(RSMul, RSAdd, Dispatch_Table, RATTable, RegTable, MulcyCount, cycle, MUL_cycle,DIV_cycle);
+		if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute")))&& 			  
+			(!Dispatch_Table[0].state.isBlank())) { // 同個cycle，有可能RS ADD有inst可以準備excute
+			AddcyCount[0] = cycle;
+			Dispatch_Table[0].buffer = "execute";
+			Dispatch_Table[0].Inst = Dispatch_Table[0].state;
+			for (int i = 0; i < RSAdd.length; i++) {
+				if (RSAdd[i].ID.equals(Dispatch_Table[0].state)) {
+					RSAdd[i].DISP = "Exec" + Integer.toString((cycle - AddcyCount[0] + 1));
+					break;
+				}
+			}
+		}
+		cycle = cycle + 1;
+	}</code></pre>
