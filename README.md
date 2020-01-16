@@ -335,6 +335,5 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			RSAdd = dispatch_2(RSAdd, Dispatch_Table);
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}
-		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>
-
-	}
+		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);
+	}</code></pre>
