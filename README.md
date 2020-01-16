@@ -155,8 +155,8 @@ class REGS {
 	}
 }</code></pre>
 
- * 程式106~292行:為主程式，說明如下
-  <br/>  1. 106~126行:由使用者輸入+、-、x、/指令運算所需cycle數
+ * 程式106-292行:為主程式，說明如下
+  <br/>  1. 106-126行:由使用者輸入+、-、x、/指令運算所需cycle數
  <pre><code>
   public class tomasulo_algorithm {
 
