@@ -220,3 +220,24 @@ class REGS {
 	        ........
 		...........
 		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>
+		
+<br/>  5. 163-181行:如果buffer有inst在執行的狀況，此狀況為ADD
+   <pre><code>
+   			if ((Dispatch_Table[1].buffer.equals("execute")) && (Dispatch_Table[0].buffer.equals("execute"))) { // 如果buffer有inst在執行的狀況，此狀況為ADD    // Buffer及MUL
+																												// Buffer同時都為execute狀態
+				writeback_1(RSMul, RSAdd, Dispatch_Table, RATTable, RegTable, MulcyCount, cycle, MUL_cycle, // 檢查該 MUL
+																											// buffer是否可writeback
+						DIV_cycle);
+				writeback_2(RSMul, RSAdd, Dispatch_Table, RATTable, RegTable, AddcyCount, cycle, ADD_cycle, // 檢查該ADD
+																											// buffer是否可writeback
+						SUB_cycle);
+				if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) { // 同時檢查IQ table是否可 issue
+					RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);
+				} else if (Inst[0].op.equals("MUL") || Inst[0].op.equals("DIV")) {
+					RSMul RsMul[] = issue_1(Inst, RSMul, RATTable, RegTable);
+				}
+				cycle = cycle + 1; // write剛執行完後，需下個迴圈才能進入Dispatch
+				RSAdd = dispatch_2(RSAdd, Dispatch_Table); // 檢查RS ADD是否可dispatch
+				RSMul = dispatch_1(RSMul, Dispatch_Table); // 檢查RS MUL是否可dispatch
+				print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
+			} </code></pre>
