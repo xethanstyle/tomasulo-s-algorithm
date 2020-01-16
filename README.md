@@ -45,3 +45,104 @@
 ![image](16.png "第十三個cycle")
 
 ## 3.程式說明
+ * 程式5~104行:為本次運算使用之類別，含
+<pre><code>lass Instruction {
+	String name, op, fsu, fj, fk;
+	int count;
+
+	Instruction() {
+		this.name = "";
+		this.op = "";
+		this.fsu = "";
+		this.fj = "";
+		this.fk = "";
+		this.count = 0;
+	}
+
+	Instruction(String na, String o, String fs, String j, String k, int co) {
+		name = na;
+		op = o;
+		fsu = fs;
+		fj = j;
+		fk = k;
+		count = co;
+	}
+}
+
+class RSAdd {
+	String ID, BUSY, OP, Qj, Qk, DISP, inst, Vj, Vk;
+	int candidate;
+
+	RSAdd() {
+		this.ID = " ";
+		this.BUSY = " ";
+		this.OP = " ";
+		this.Vj = " ";
+		this.Vk = " ";
+		this.Qj = " ";
+		this.Qk = " ";
+		this.DISP = " ";
+		this.inst = " ";
+		this.candidate = -1;
+	}
+}
+
+class RSMul {
+	String ID, BUSY, OP, Qj, Qk, DISP, inst, Vj, Vk;
+
+	RSMul() {
+		this.ID = " ";
+		this.BUSY = " ";
+		this.OP = " ";
+		this.Vj = " ";
+		this.Vk = " ";
+		this.Qj = " ";
+		this.Qk = " ";
+		this.DISP = " ";
+		this.inst = " ";
+	}
+}
+
+class RS_ld {
+	Boolean busy, disp;
+	String OP, Qj;
+	int Vk;
+
+	RS_ld() {
+		this.busy = false;
+		this.disp = false;
+		this.OP = null;
+		this.Qj = null;
+	}
+}
+
+class RAT {
+	String rat, content;
+
+	RAT() {
+		this.rat = null;
+		this.content = null;
+
+	}
+}
+
+class Dispatch {
+	String ID, Inst, buffer, state;
+
+	Dispatch() {
+		this.ID = " ";
+		this.Inst = " ";
+		this.buffer = " ";
+		this.state = " ";
+	}
+}
+
+class REGS {
+	String reg;
+	int content;
+
+	REGS() {
+		this.reg = null;
+
+	}
+}</code></pre>
