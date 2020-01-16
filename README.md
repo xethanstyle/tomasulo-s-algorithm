@@ -181,11 +181,35 @@ class REGS {
 		System.out.println();</code></pre>
  
   <br/>  2. 127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
-   <br/><pre><code>
-		 Instruction Inst[] = new Instruction[4];
+   <pre><code>
+		Instruction Inst[] = new Instruction[4];
 		Inst[0] = new Instruction("INST1", "MUL", "F3", "F2", "F1", 0);
 		Inst[1] = new Instruction("INST2", "SUB", "F0", "F3", "F5", 0);
 		Inst[2] = new Instruction("INST3", "ADD", "F10", "F1", "F0", 0);
 		Inst[3] = new Instruction("INST4", "DIV", "F6", "F8", "F2", 0);
-
 		TreeSet RegSet = RegSet(Inst);</code></pre>
+ <br/>  3. 137-159行:初始化各類別，如REG Table、RAT Table、RS Table、IQ Table...等
+   <pre><code>
+   		int MulcyCount[] = new int[1];
+
+		int AddcyCount[] = new int[1];
+
+		System.out.println("\n加法需要 " + ADD_cycle + " 個cycle、減法需要 " + SUB_cycle + " 個cycle、乘法需要 " + MUL_cycle
+				+ " 個cycle、除法需要 " + DIV_cycle + " 個cycle !!\n");
+
+		int RegArray[] = RegArray(RegSet);
+
+		REGS RegTable[] = initRegTable(RegArray); // 初始化REG Table
+
+		RAT RATTable[] = initRatTable(RegArray); // 初始化Rat Table
+
+		RSAdd RSAdd[] = initRSAddTable(); // 初始化RsAdd Table
+
+		RSMul RSMul[] = initRSMulTable(); // 初始化RsAdd Table
+
+		Dispatch Dispatch_Table[] = initDispatch(); // 初始化Dispatch Table
+
+		boolean hasnext = true;
+
+		System.out.println("(初始狀態)  Cycel: 0");
+		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>
