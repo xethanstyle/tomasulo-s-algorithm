@@ -45,9 +45,16 @@
 ![image](16.png "第十三個cycle")
 
 ## 3.程式說明
- * 程式5~104行:為本次運算使用之類別，含
-  <br/>  1.Instruction():設定指令數量即指令內容
-<pre><code>lass Instruction {
+ * 程式5~104行:為本次運算使用之類別，含:
+  <br/>  1. Instruction:設定指令數量及指令內容
+  <br/>  2. RSAdd:設定加、減運算之RS Table欄位，預設三個空間
+  <br/>  3. RSMul:設定乘、除運算之RS Table欄位，預設兩個空間
+  <br/>  4. RS_ld:設定讀取、寫入運算之RS Table欄位，本次尚未使用
+  <br/>  5. RAT:設定RAT Table欄位資料
+  <br/>  6. Dispatch:設定如Dispatch時，Buffer資料內容同步
+  <br/>  7. REGS:設定REG Table欄位資料  
+<pre><code>
+class Instruction {
 	String name, op, fsu, fj, fk;
 	int count;
 
