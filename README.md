@@ -213,3 +213,10 @@ class REGS {
 
 		System.out.println("(初始狀態)  Cycel: 0");
 		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>
+		
+<br/>  4. 161-292行:以do..while運算結構，開始執行演算，說明如後
+   <pre><code>
+   	do {    程式段.....
+	        ........
+		...........
+		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>
