@@ -273,3 +273,14 @@ class REGS {
 	      }
 		cycle = cycle + 1;
 	}</code></pre>
+<br/>  8. 216-224行:同個cycle可再檢查是否有inst可issue
+ <pre><code>
+ if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) { // 同個cycle可再檢查是否有inst可issue
+  RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);} 
+  else if (Inst[0].op.equals("MUL") || Inst[0].op.equals("DIV")) {
+	RSMul RsMul[] = issue_1(Inst, RSMul, RATTable, RegTable);
+  }
+	RSAdd = dispatch_2(RSAdd, Dispatch_Table); // 同個cycle可再檢查是否有inst可準備進入dispatch
+	RSMul = dispatch_1(RSMul, Dispatch_Table);
+	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
+}
