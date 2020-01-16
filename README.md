@@ -16,7 +16,7 @@
  <br/>  2.使用者可由原始碼頁面輸入Instruction指令
 ![image](3.png "輸入指令畫面_")
  <br/>  3.初始狀態預覽
-![image](2.png "初始狀態_")
+![image](.png "初始狀態_")
  <br/>  4.第1個cycle
 ![image](4.png "第一個cycle")
  <br/>  5.第2個cycle
