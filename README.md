@@ -46,6 +46,7 @@
 
 ## 3.程式說明
  * 程式5~104行:為本次運算使用之類別，含
+  <br/>  1.Instruction():設定指令數量即指令內容
 <pre><code>lass Instruction {
 	String name, op, fsu, fj, fk;
 	int count;
