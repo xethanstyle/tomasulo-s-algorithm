@@ -283,4 +283,40 @@ class REGS {
 	RSAdd = dispatch_2(RSAdd, Dispatch_Table); // 同個cycle可再檢查是否有inst可準備進入dispatch
 	RSMul = dispatch_1(RSMul, Dispatch_Table);
 	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
-}
+}</code></pre>
+<br/>  8. 216-224行:ADD及MULTI Buffer均為閒置狀態
+ <pre><code>
+else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))|| (!(Dispatch_Table[1].state.isBlank()) && (!(Dispatch_Table[1].buffer.equals("execute"))))) { // ADD及MULTI Buffer均為閒置狀態
+	if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))&& 	
+		(!Dispatch_Table[0].state.isBlank())) {
+		AddcyCount[0] = cycle;
+		Dispatch_Table[0].buffer = "execute";
+		Dispatch_Table[0].Inst = Dispatch_Table[0].state;
+	}
+	if ((!(Dispatch_Table[1].state.isBlank()) && (!(Dispatch_Table[1].buffer.equals("execute"))))&& 	
+		(!Dispatch_Table[1].state.isBlank())) {
+		MulcyCount[0] = cycle;
+		Dispatch_Table[1].buffer = "execute";
+		Dispatch_Table[1].Inst = Dispatch_Table[1].state;
+	}
+	cycle = cycle + 1;
+	for (int i = 0; i < RSAdd.length; i++) {
+		if (RSAdd[i].ID.equals(Dispatch_Table[0].state)) {
+			RSAdd[i].DISP = "Exec" + Integer.toString((cycle - AddcyCount[0]));
+			break;
+		}
+	}
+	for (int i = 0; i < RSMul.length; i++) {
+		if (RSMul[i].ID.equals(Dispatch_Table[1].state)) {
+			RSMul[i].DISP = "Exec" + Integer.toString((cycle - MulcyCount[0]));
+			break;
+
+		}
+	}
+	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);
+				} 
+		else if (Inst[0].op.equals("MUL") || Inst[0].op.equals("DIV")) {
+			RSMul RsMul[] = issue_1(Inst, RSMul, RATTable, RegTable);
+		}
+			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
+		}</code></pre>
