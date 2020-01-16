@@ -35,3 +35,5 @@
 ![image](11.png "第八個cycle")
  <br/>  12.第9個cycle
 ![image](12.png "第九個cycle")
+ <br/>  13.第10個cycle
+![image](13.png "第十個cycle")
