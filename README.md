@@ -337,7 +337,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);
 	}</code></pre>
-* ## Method I : RegSet (286~294行) <br/> 從輸入的指令中，計算本次運算有那些Reg，存入TreeSet，目的為將重複出現之Reg刪除
+* ## Method I : RegSet (286~294行) <br/> <>從輸入的指令中，計算本次運算有那些Reg，存入TreeSet，目的為將重複出現之Reg刪除
  <pre><code>
  public static TreeSet RegSet(Instruction inst[]) { // 計算本次運算有那些Reg，存入TreeSet，目的將重複出現之Reg刪除
 		TreeSet<String> RegSet = new TreeSet<String>();
