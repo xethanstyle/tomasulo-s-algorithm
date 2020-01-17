@@ -863,5 +863,63 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 
 	}</code></pre>
 * ## Method XIV :  print((778~834行)
-	
+	將每個cycle運算之結果，依Inst、RSAdd、RSMul、Add buffer及Mul buffer等Table完成列印
 	<pre><code>
+	public static void print(REGS RegTable[], Instruction Instruction[], RAT RatTable[], RSAdd RSAddTable[],
+			RSMul RSMulTable[], Dispatch Dispatch_Table[]) { // 列印
+		System.out.println("\n   IQ Table :\n");
+		for (int i = Instruction.length - 1; i >= 0; i--) {
+			System.out.print("\t| " + Instruction[i].name + "\t|  " + Instruction[i].op + "\t" + Instruction[i].fsu
+					+ "   " + Instruction[i].fj + "  " + Instruction[i].fk + "\t|");
+			System.out.println();
+			System.out.println("\t----------------------------------");
+		}
+
+		System.out.println("\n   RS_Add Table :\t\t\t\t\t\t\t\tRS_MUL Table :\n");
+		System.out.print("\t| " + " ID" + "\t|" + " BUSY" + "\t|  " + "OP" + "\t|  " + "Vj" + "\t|  " + "Vk" + "\t|  "
+				+ "Qj" + "\t|  " + "Qk" + "\t|  " + "DISP" + "\t|" + "\t| " + " ID" + "\t|" + " BUSY" + "\t|  " + "OP"
+				+ "\t|  " + "Vj" + "\t|  " + "Vk" + "\t|  " + "Qj" + "\t|  " + "Qk" + "\t|  " + "DISP" + "\t|\n");
+		System.out.println(
+				"\t------------------------------------------------------------------\t-----------------------------------------------------------------");
+		for (int i = 0; i < RSAddTable.length; i++) {
+			System.out.print("\t|  " + RSAddTable[i].ID + "\t|  " + RSAddTable[i].BUSY + "\t|  " + RSAddTable[i].OP
+					+ "\t|   " + RSAddTable[i].Vj + "\t|   " + RSAddTable[i].Vk + "\t|  " + RSAddTable[i].Qj + "\t|  "
+					+ RSAddTable[i].Qk + "\t| " + RSAddTable[i].DISP + "\t|");
+			if (i == 0) {
+				System.out.println();
+			}
+			if (i >= 1) {
+				System.out.print("\t|  " + RSMulTable[i - 1].ID + "\t|  " + RSMulTable[i - 1].BUSY + "\t|  "
+						+ RSMulTable[i - 1].OP + "\t|   " + RSMulTable[i - 1].Vj + "\t|   " + RSMulTable[i - 1].Vk
+						+ "\t|  " + RSMulTable[i - 1].Qj + "\t|  " + RSMulTable[i - 1].Qk + "\t| "
+						+ RSMulTable[i - 1].DISP + "\t|\n");
+			}
+			System.out.println(
+					"\t-----------------------------------------------------------------\t-----------------------------------------------------------------");
+		}
+
+		System.out.print("\n   Reg Table: \t\t\t RAT Table:\n\n");
+		for (int i = 0; i < RegTable.length; i++) {
+			System.out.print("\t|  " + RegTable[i].reg + "\t|");
+			System.out.print("   " + RegTable[i].content + "\t|");
+			System.out.print("\t\t |  " + RatTable[i].rat + "\t|");
+			System.out.print("  " + RatTable[i].content + "\t| \n");
+		}
+		System.out.println();
+
+		System.out.print("\n   Dispatch Table:\n\n");
+
+		System.out
+				.print("  \t|" + "\t" + Dispatch_Table[0].ID + "\t  |\t\t|" + "\t" + Dispatch_Table[1].ID + "\t   |\n");
+		System.out.println("\t------------------\t\t ------------------");
+		System.out.print(
+				"  \t|" + "\t" + Dispatch_Table[0].Inst + "\t  |\t\t|" + "\t" + Dispatch_Table[1].Inst + "\t   |\n");
+		System.out.println("\t------------------\t\t ------------------");
+		System.out.print("  \t|" + "\t" + Dispatch_Table[0].buffer + "\t  |\t\t|" + "\t" + Dispatch_Table[1].buffer
+				+ "\t   |\n");
+		System.out.println();
+		System.out.println(
+				"==========================================================================================\n");
+	}
+}</code></pre>
+
