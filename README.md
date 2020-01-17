@@ -424,3 +424,90 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		return RsA_Table;
 	}</code></pre>
+* ## Method VI : initRSMulTable((351~3363行)
+	初始化RS Mul
+	<pre><code>
+	public static RSMul[] initRSMulTable() { // 初始化RS Mul
+		RSMul RsM_Table[] = new RSMul[2];
+		for (int i = 0; i < RsM_Table.length; i++) {
+			RsM_Table[i] = new RSMul();
+
+			RsM_Table[i].OP = " ";
+			RsM_Table[i].Qj = " ";
+			RsM_Table[i].Qk = " ";
+		}
+		RsM_Table[0].ID = "RS4";
+		RsM_Table[1].ID = "RS5";
+		return RsM_Table;
+	}</code></pre>
+* ## Method VII : initDispatch((365~372行)
+	初始化Dispatch Buffer
+	<pre><code>
+	public static Dispatch[] initDispatch() { // 初始化Dispatch
+		Dispatch Dispatch_Table[] = new Dispatch[2];
+		for (int i = 0; i < Dispatch_Table.length; i++)
+			Dispatch_Table[i] = new Dispatch();
+		Dispatch_Table[0].ID = "ADD";
+		Dispatch_Table[1].ID = "MULTI";
+		return Dispatch_Table;
+	}</code></pre>
+* ## Method VIII :  issue_1((374~行)
+	計算一個cycle後,RSMul Table狀態，如IQ尚有MUL及DIV指令，則進行Issue運作
+	<pre><code>
+	public static RSMul[] issue_1(Instruction inst[], RSMul RsM[], RAT RAT_Table[], REGS REG_Table[]) { // 計算一個cycle後,RSMul
+																										// Table狀態
+		int index = -1;
+		for (int i = 0; i < RsM.length; i++) {
+			if (RsM[i].BUSY == " " && inst.length != 0) { // 判斷RS空間是否足夠
+				RsM[i].BUSY = inst[0].fsu;
+				RsM[i].OP = inst[0].op;
+				RsM[i].inst = inst[0].name;
+				index = i;
+				break;
+			}
+		}
+		if (index != -1) {
+			for (int j = 0; j < REG_Table.length; j++) {
+				if (RAT_Table[j].rat.equals(inst[0].fj) && (!RAT_Table[j].content.equals(" "))) {
+					RsM[index].Qj = RAT_Table[j].content;
+					break;
+				} else if (RAT_Table[j].rat.equals(inst[0].fj) && RAT_Table[j].content.equals(" ")) {
+					RsM[index].Vj = Integer.toString(REG_Table[j].content);
+					break;
+				}
+			}
+
+			for (int j = 0; j < REG_Table.length; j++) {
+				if (RAT_Table[j].rat.equals(inst[0].fk) && (!RAT_Table[j].content.equals(" "))) {
+					RsM[index].Qk = RAT_Table[j].content;
+					break;
+				}
+
+				else if (RAT_Table[j].rat.equals(inst[0].fk) && RAT_Table[j].content.equals(" ")) {
+					RsM[index].Vk = Integer.toString(REG_Table[j].content);
+					break;
+				}
+			}
+
+			for (int i = 0; i < RAT_Table.length; i++) { // 更新RAT Table
+				if (RAT_Table[i].rat.equals(RsM[index].BUSY)) {
+					RAT_Table[i].content = RsM[index].ID;
+				}
+			}
+
+			for (int i = 0; i < RsM.length; i++) { // 如果Instruction有被Issue，重新整理IQ Table
+				if (RsM[i].inst.equals(inst[0].name)) {
+					System.out.println("Issue: " + inst[0].name + "  " + inst[0].op + "  " + inst[0].fsu + "  "
+							+ inst[0].fj + " " + inst[0].fk);
+					for (int j = 0; j < (inst.length - 1); j++) {
+						inst[j] = inst[j + 1];
+					}
+					inst[inst.length - 1] = new Instruction();
+					break;
+				}
+			}
+
+		}
+
+		return RsM;
+	}</code></pre>
