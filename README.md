@@ -329,7 +329,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}</code></pre>	
 #### 10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
-	<pre><code>
+<pre><code>
 	else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
 			RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);
@@ -380,7 +380,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		return RegArr;
 	}</code></pre>
-* ## Method IIi : initRegTable (315~326行)	
+* ## Method III : initRegTable (315~326行)	
 	初始化Reg Table
 	
 	<pre><code>
@@ -395,4 +395,18 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 
 		}
 		return RegTable;
-	}
+	}</code></pre>
+* ## Method IV : initRatTable(328~337行)
+	初始化RAT Table
+	
+	<pre><code>
+	public static RAT[] initRatTable(int RegArray[]) { // 初始化RAT Table
+		RAT RatTable[] = new RAT[RegArray.length];
+
+		for (int i = 0; i < RatTable.length; i++) {
+			RatTable[i] = new RAT();
+			RatTable[i].rat = "F" + Integer.toString(RegArray[i]);
+			RatTable[i].content = " ";
+		}
+		return RatTable;
+	}</code></pre>
