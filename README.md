@@ -628,3 +628,106 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		return RsA;
 	}</code></pre>
+* ## Method XII :  writeback_1((550~649行)
+	計算RSMul已進入Dispatch之指令(含乘、除運算)，何時(Cycle)可完成運算，並進入WRITE運算
+	<pre><code>
+	public static void writeback_1(RSMul RsM[], RSAdd RsAdd[], Dispatch Dispatch_Table[], RAT RATTable[],
+			REGS RegTable[], int MulcyCount[], int cycle, int MUL_cycle, int DIV_cycle) {
+		int index = -1;
+		String result = "";
+		String Reg = "";
+		for (int i = 0; i < RsM.length; i++) {
+			if (RsM[i].DISP.contains("Exec")) {
+				index = i;
+			}
+		}
+		RsM[index].DISP = "Exec" + Integer.toString(cycle - MulcyCount[0] + 1);
+		if (RsM[index].OP.equals("MUL")) { // 乘法的部分
+
+			if ((cycle - MulcyCount[0]) == MUL_cycle) {
+				result = Integer.toString((Integer.parseInt(RsM[index].Vj) * Integer.parseInt(RsM[index].Vk)));// 計算得到的值
+				Reg = RsM[index].ID;
+				RsM[index] = new RSMul();
+				if (index == 0) {
+					RsM[index].ID = "RS4";
+				} else {
+					RsM[index].ID = "RS5";
+				}
+				MulcyCount = new int[1];
+				Dispatch_Table[1].buffer = " ";
+				Dispatch_Table[1].Inst = " ";
+				Dispatch_Table[1].state = " ";
+
+				for (int j = 0; j < RATTable.length; j++) {
+					if (RATTable[j].content.equals(Reg)) { // 如果RAT Table有相同的暫存器名稱，才修改RegTable，否則不修改
+						RegTable[j].content = Integer.parseInt(result); // 更新Reg Table裡對應的值
+						RATTable[j].content = " "; // 消除RAT Table之前對應的值
+						break;
+					}
+				}
+				for (int k = 0; k < RsAdd.length; k++) { // 檢查其他RS_Add Table是否有參照，並更新
+					if (RsAdd[k].Qj.equals(Reg)) {
+						RsAdd[k].Vj = result;
+						RsAdd[k].Qj = " ";
+					} else if (RsAdd[k].Qk.equals(Reg)) {
+						RsAdd[k].Vk = result;
+						RsAdd[k].Qk = " ";
+					}
+				}
+				for (int k = 0; k < RsM.length; k++) { // 檢查其他RS_MUL Table是否有參照，並更新
+					if (RsM[k].Qj.equals(Reg)) {
+						RsM[k].Vj = result;
+						RsM[k].Qj = " ";
+					} else if (RsM[k].Qk.equals(Reg)) {
+						RsM[k].Vk = result;
+						RsM[k].Qk = " ";
+					}
+				}
+			}
+		} else if (RsM[index].OP.equals("DIV")) { // 除法的部分
+			if ((cycle - MulcyCount[0]) == DIV_cycle) {
+				result = Integer.toString((Integer.parseInt(RsM[index].Vj) / Integer.parseInt(RsM[index].Vk)));// 計算得到的值
+				Reg = RsM[index].ID;
+				System.out.println("597");
+				RsM[index] = new RSMul();
+				System.out.println("598");
+				if (index == 0) {
+					RsM[index].ID = "RS4";
+				} else {
+					RsM[index].ID = "RS5";
+				}
+				MulcyCount = new int[1];
+				System.out.println("604");
+				Dispatch_Table[1].buffer = " ";
+				Dispatch_Table[1].Inst = " ";
+				Dispatch_Table[1].state = " ";
+				System.out.println("609");
+
+				for (int j = 0; j < RATTable.length; j++) {
+					if (RATTable[j].content.equals(Reg)) { // 如果RAT Table有相同的暫存器名稱，才修改RegTable，否則不修改
+						RegTable[j].content = Integer.parseInt(result); // 更新Reg Table裡對應的值
+						RATTable[j].content = " "; // 消除RAT Table之前對應的值
+						break;
+					}
+				}
+				for (int k = 0; k < RsAdd.length; k++) { // 檢查其他RS_Add Table是否有參照，並更新
+					if (RsAdd[k].Qj.equals(Reg)) {
+						RsAdd[k].Vj = result;
+						RsAdd[k].Qj = " ";
+					} else if (RsAdd[k].Qk.equals(Reg)) {
+						RsAdd[k].Vk = result;
+						RsAdd[k].Qk = " ";
+					}
+				}
+				for (int k = 0; k < RsM.length; k++) { // 檢查其他RS_MUL Table是否有參照，並更新
+					if (RsM[k].Qj.equals(Reg)) {
+						RsM[k].Vj = result;
+						RsM[k].Qj = " ";
+					} else if (RsM[k].Qk.equals(Reg)) {
+						RsM[k].Vk = result;
+						RsM[k].Qk = " ";
+					}
+				}
+			}
+		}
+	}</code></pre>
