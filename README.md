@@ -321,7 +321,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}</code></pre>
-<br/>	10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
+#### 	10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
  <pre><code>
 	 else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
