@@ -329,7 +329,6 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}</code></pre>	
 #### 10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
-
 	<pre><code>
 	else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
@@ -345,8 +344,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}
 		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);
-	}</code></pre>
-	
+	}</code></pre>	
 * ## Method I : RegSet (286~294行)	
 	從輸入的指令中，計算本次運算有那些Reg，存入TreeSet，目的為將重複出現之Reg刪除
 	
@@ -382,3 +380,19 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		return RegArr;
 	}</code></pre>
+* ## Method IIi : initRegTable (315~326行)	
+	初始化Reg Table
+	
+	<pre><code>
+	public static REGS[] initRegTable(int RegArray[]) { // 初始化Reg Table
+		REGS RegTable[] = new REGS[RegArray.length];
+
+		for (int i = 0; i < RegTable.length; i++) {
+			RegTable[i] = new REGS();
+			RegTable[i].reg = "F" + Integer.toString(RegArray[i]);
+
+			RegTable[i].content = (int) (Math.random() * 10) + 1; // 亂數產生RegTable內的值，範圍1~10
+
+		}
+		return RegTable;
+	}
