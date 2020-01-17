@@ -274,7 +274,7 @@ class REGS {
 	      }
 		cycle = cycle + 1;
 	}</code></pre>
-<br/>	8. 216-224行:同個cycle可再檢查是否有inst可issue
+	8. 216-224行:同個cycle可再檢查是否有inst可issue
  <pre><code>
  if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) { // 同個cycle可再檢查是否有inst可issue
   RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);} 
@@ -285,7 +285,7 @@ class REGS {
 	RSMul = dispatch_1(RSMul, Dispatch_Table);
 	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 }</code></pre>
-<br/>	9. 226-264行:ADD及MULTI Buffer均為閒置狀態
+	9. 226-264行:ADD及MULTI Buffer均為閒置狀態
  <pre><code>
 else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))|| (!(Dispatch_Table[1].state.isBlank()) && (!(Dispatch_Table[1].buffer.equals("execute"))))) { // ADD及MULTI Buffer均為閒置狀態
 	if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))&& 	
@@ -321,7 +321,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}</code></pre>
-<br/>	10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
+	10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
  <pre><code>
 	 else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
