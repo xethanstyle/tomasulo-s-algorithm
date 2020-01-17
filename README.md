@@ -629,7 +629,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		return RsA;
 	}</code></pre>
 * ## Method XII :  writeback_1((550~649行)
-	計算RSMul已進入Dispatch之指令(含乘、除運算)，何時(Cycle)可完成運算，並進入WRITE運算
+	計算RSMul已進入Dispatch之指令(含乘、除指令)，何時(Cycle)可完成運算，並進入WRITE運算
 	<pre><code>
 	public static void writeback_1(RSMul RsM[], RSAdd RsAdd[], Dispatch Dispatch_Table[], RAT RATTable[],
 			REGS RegTable[], int MulcyCount[], int cycle, int MUL_cycle, int DIV_cycle) {
@@ -732,7 +732,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 	}</code></pre>
 * ## Method XII :  writeback_2((651~747行)
-	計算RSADD已進入Dispatch之指令(含加、減運算)，何時(Cycle)可完成運算，並進入WRITE運算
+	計算RSADD已進入Dispatch之指令(含加、減指令)，何時(Cycle)可完成運算，並進入WRITE運算
 	<pre><code>
 	public static void writeback_2(RSMul RsM[], RSAdd RsA[], Dispatch Dispatch_Table[], RAT RATTable[], REGS RegTable[],
 			int AddcyCount[], int cycle, int ADD_cycle, int SUB_cycle) {
@@ -831,3 +831,37 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			}
 		}
 	}</code></pre>
+* ## Method XIII :  hasNext((749~776行)
+	當指令列(Inst),RsA,RsM等Table還有值時，回傳true，用來告知do while指令尚還有指令、Reg未完成運算，繼續執行下一個cycle
+	<pre><code>
+	public static boolean hasNext(boolean hasnext, Instruction Inst[], RSAdd RsA[], RSMul RsM[]) { // 當inst,RsA,RsM等Table還有值時，回傳true
+		boolean Inst_hasnext = true;
+		boolean RsA_hasnext = true;
+		boolean RsM_hasnext = true;
+		if (Inst[0].name.isBlank()) {
+			Inst_hasnext = false;
+		}
+
+		for (int i = 0; i < RsA.length; i++) {
+			if (!(RsA[i].BUSY.isBlank())) {
+				RsA_hasnext = true;
+				break;
+			} else
+				RsA_hasnext = false;
+		}
+
+		for (int i = 0; i < RsM.length; i++) {
+			if (!(RsM[i].BUSY.isBlank())) {
+				RsM_hasnext = true;
+				break;
+			} else
+				RsM_hasnext = false;
+		}
+
+		hasnext = (Inst_hasnext || RsA_hasnext || RsM_hasnext);
+		return hasnext;
+
+	}</code></pre>
+* ## Method XIV :  print((778~834行)
+	
+	<pre><code>
