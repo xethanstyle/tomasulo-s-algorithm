@@ -331,7 +331,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 #### 10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
 
 	<pre><code>
-	 else {
+	else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
 			RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);
 			cycle = cycle + 1;
@@ -346,11 +346,12 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);
 	}</code></pre>
+	
 * ## Method I : RegSet (286~294行)	
 	從輸入的指令中，計算本次運算有那些Reg，存入TreeSet，目的為將重複出現之Reg刪除
 	
 	<pre><code>
- public static TreeSet RegSet(Instruction inst[]) { // 計算本次運算有那些Reg，存入TreeSet，目的將重複出現之Reg刪除
+	public static TreeSet RegSet(Instruction inst[]) { // 計算本次運算有那些Reg，存入TreeSet，目的將重複出現之Reg刪除
 		TreeSet<String> RegSet = new TreeSet<String>();
 		for (int i = 0; i < inst.length; i++) {
 			RegSet.add(inst[i].fsu);
