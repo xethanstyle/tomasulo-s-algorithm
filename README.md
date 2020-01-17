@@ -920,6 +920,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		System.out.println();
 		System.out.println(
 				"==========================================================================================\n");
+			}
+		}
 	}
 }</code></pre>
-
