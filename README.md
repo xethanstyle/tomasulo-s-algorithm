@@ -511,7 +511,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		return RsM;
 	}</code></pre>
 * ## Method IX :  issue_2((432~486行)
-	計算一個cycle後,RSMul Table狀態，如IQ尚有MUL及DIV指令，則進行Issue運作
+	計算一個cycle後,RSAdd Table狀態，如IQ尚有ADD及SUB指令，則進行Issue運作
 	<pre><code>
 	public static RSAdd[] issue_2(Instruction inst[], RSAdd RsA[], RAT RAT_Table[], REGS REG_Table[]) { // 計算一個cycle後RSAddTable
 		int index = -1;
@@ -568,7 +568,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		return RsA;
 	}</code></pre>
 * ## Method X :  dispatch_1((488~510行)
-	計算哪一個RSMuL已經ready，可以進入執行Di運作
+	計算哪一個RSMuL已經ready，可以進入執行Dispatch運作
 	<pre><code>	
 	public static RSMul[] dispatch_1(RSMul RsM[], Dispatch Dispatch_Table[]) { // 計算哪一個RS已經ready，可以進入執行
 		int dispatch_index = -1;
@@ -592,7 +592,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		return RsM;
 	}</code></pre>
 * ## Method XI :  dispatch_2((512~548行)
-	計算哪一個RSAdd已經ready，可以進入執行Di運作
+	計算哪一個RSAdd已經ready，可以進入執行Dispatch運作
 	<pre><code>
 	public static RSAdd[] dispatch_2(RSAdd RsA[], Dispatch Dispatch_Table[]) { // 計算哪一個RS已經ready，可以進入執行
 		int dispatch_index = -1;
