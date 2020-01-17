@@ -454,8 +454,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 * ## Method VIII :  issue_1((374~行)
 	計算一個cycle後,RSMul Table狀態，如IQ尚有MUL及DIV指令，則進行Issue運作
 	<pre><code>
-	public static RSMul[] issue_1(Instruction inst[], RSMul RsM[], RAT RAT_Table[], REGS REG_Table[]) { // 計算一個cycle後,RSMul
-																										// Table狀態
+	public static RSMul[] issue_1(Instruction inst[], RSMul RsM[], RAT RAT_Table[], REGS REG_Table[]) { // 計算一個cycle後,RSMulTable
 		int index = -1;
 		for (int i = 0; i < RsM.length; i++) {
 			if (RsM[i].BUSY == " " && inst.length != 0) { // 判斷RS空間是否足夠
@@ -510,4 +509,122 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 
 		return RsM;
+	}</code></pre>
+* ## Method IX :  issue_2((432~486行)
+	計算一個cycle後,RSMul Table狀態，如IQ尚有MUL及DIV指令，則進行Issue運作
+	<pre><code>
+	public static RSAdd[] issue_2(Instruction inst[], RSAdd RsA[], RAT RAT_Table[], REGS REG_Table[]) { // 計算一個cycle後RSAddTable
+		int index = -1;
+		for (int i = 0; i < RsA.length; i++) {
+			if (RsA[i].BUSY == " " && inst.length != 0) { // 判斷RS空間是否足夠
+				RsA[i].BUSY = inst[0].fsu;
+				RsA[i].OP = inst[0].op;
+				RsA[i].inst = inst[0].name;
+				index = i;
+				break;
+			}
+		}
+		if (index != -1) {
+			for (int j = 0; j < REG_Table.length; j++) {
+				if (RAT_Table[j].rat.equals(inst[0].fj) && (!RAT_Table[j].content.equals(" "))) {
+					RsA[index].Qj = RAT_Table[j].content;
+					break;
+				} else if (RAT_Table[j].rat.equals(inst[0].fj) && RAT_Table[j].content.equals(" ")) {
+					RsA[index].Vj = Integer.toString(REG_Table[j].content);
+					break;
+				}
+			}
+
+			for (int j = 0; j < REG_Table.length; j++) {
+				if (RAT_Table[j].rat.equals(inst[0].fk) && (!RAT_Table[j].content.equals(" "))) {
+					RsA[index].Qk = RAT_Table[j].content;
+					break;
+				}
+
+				else if (RAT_Table[j].rat.equals(inst[0].fk) && RAT_Table[j].content.equals(" ")) {
+					RsA[index].Vk = Integer.toString(REG_Table[j].content);
+					break;
+				}
+			}
+
+			for (int i = 0; i < RAT_Table.length; i++) { // 更新RAT Table
+				if (RAT_Table[i].rat.equals(RsA[index].BUSY)) {
+					RAT_Table[i].content = RsA[index].ID;
+				}
+			}
+
+			for (int i = 0; i < RsA.length; i++) { // 如果Instruction有被Issue，重新整理IQ Table
+				if (RsA[i].inst.equals(inst[0].name)) {
+					System.out.println("Issue: " + inst[0].name + "  " + inst[0].op + "  " + inst[0].fsu + "  "
+							+ inst[0].fj + " " + inst[0].fk);
+					for (int j = 0; j < (inst.length - 1); j++) {
+						inst[j] = inst[j + 1];
+					}
+					inst[inst.length - 1] = new Instruction();
+					break;
+				}
+			}
+		}
+		return RsA;
+	}</code></pre>
+* ## Method X :  dispatch_1((488~510行)
+	計算哪一個RSMuL已經ready，可以進入執行Di運作
+	<pre><code>	
+	public static RSMul[] dispatch_1(RSMul RsM[], Dispatch Dispatch_Table[]) { // 計算哪一個RS已經ready，可以進入執行
+		int dispatch_index = -1;
+		int count = 0;
+		for (int i = 0; i < RsM.length; i++) {
+			if (!(RsM[i].Vj.isBlank()) && !(RsM[i].Vk.isBlank()) && (RsM[i].Qj.isBlank() && RsM[i].Qk.isBlank())
+					&& RsM[i].DISP.isBlank() && !(RsM[i].DISP.equals("Execute"))) {
+				count++;
+				dispatch_index = i;
+			}
+		}
+		if (count == 1 && Dispatch_Table[1].buffer.isBlank()) { // 檢查RS有幾個inst已經ready,且execute buffer是空的，本項為inst僅有一個指令為ready的狀況
+			RsM[dispatch_index].DISP = "ready";
+			Dispatch_Table[1].state = RsM[dispatch_index].ID;
+		} else if (count > 1 && Dispatch_Table[1].buffer.isBlank()) { // 檢查RS有幾個inst已經ready,且execute，buffer是空的，本項為僅有二個指令已進入ready的狀況，採用random方式進行選擇哪一個指令可dispatch
+			dispatch_index = (int) (Math.random() * 2);
+			System.out.println(dispatch_index);
+			RsM[dispatch_index].DISP = "ready";
+			Dispatch_Table[1].state = RsM[dispatch_index].ID;
+		}
+		return RsM;
+	}</code></pre>
+* ## Method XI :  dispatch_2((512~548行)
+	計算哪一個RSAdd已經ready，可以進入執行Di運作
+	<pre><code>
+	public static RSAdd[] dispatch_2(RSAdd RsA[], Dispatch Dispatch_Table[]) { // 計算哪一個RS已經ready，可以進入執行
+		int dispatch_index = -1;
+		int count = 0;
+		for (int i = 0; i < RsA.length; i++) {
+			if (!(RsA[i].Vj.isBlank()) && !(RsA[i].Vk.isBlank()) && (RsA[i].Qj.isBlank() && RsA[i].Qk.isBlank())
+					&& RsA[i].DISP.isBlank() && !(RsA[i].DISP.equals("Execute"))) {
+				count++;
+				dispatch_index = i;
+				RsA[i].candidate = i;
+			}
+		}
+		if (count == 1 && Dispatch_Table[0].buffer.isBlank()) { // 檢查RS有幾個inst已經ready,且execute buffer是空的，本項為僅有一個指令為ready的狀況
+			RsA[dispatch_index].DISP = "ready";
+			Dispatch_Table[0].state = RsA[dispatch_index].ID;
+		} else if (count == 2 && Dispatch_Table[0].buffer.isBlank()) { // 檢查RS有幾個inst已經ready,且execute buffer是空的，本項為i有二個指令為ready的狀況，採用random方式選擇哪一個指令進入dispatch
+			LinkedList list = new LinkedList();
+			for (int i = 0; i < RsA.length; i++) {
+				if (RsA[i].candidate != -1) {
+					list.add(RsA[i].candidate);
+				}
+			}
+			dispatch_index = (int) list.get((int) (Math.random() * 2));
+			RsA[dispatch_index].DISP = "ready";
+			Dispatch_Table[0].state = RsA[dispatch_index].ID;
+		} else if (count == 3 && Dispatch_Table[0].buffer.isBlank()) { // 檢查RS有幾個inst已經ready,且execute buffer是空的，本項為i三個指令均為ready的狀況，採用random方式選擇哪一個指令進入dispatch
+			dispatch_index = (int) (Math.random() * 3);
+			RsA[dispatch_index].DISP = "ready";
+			Dispatch_Table[0].state = RsA[dispatch_index].ID;
+		}
+		for (int i = 0; i < RsA.length; i++) { // 重置candidate
+			RsA[i].candidate = -1;
+		}
+		return RsA;
 	}</code></pre>
