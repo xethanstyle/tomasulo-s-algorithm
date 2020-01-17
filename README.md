@@ -410,3 +410,17 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 		return RatTable;
 	}</code></pre>
+* ## Method V : initRSAddTable(339~349行)
+	初始化RS Add
+	<pre><code>
+	public static RSAdd[] initRSAddTable() { // 初始化RS Add
+		RSAdd RsA_Table[] = new RSAdd[3];
+		for (int i = 0; i < RsA_Table.length; i++) {
+			RsA_Table[i] = new RSAdd();
+			RsA_Table[i].ID = "RS" + Integer.toString(i + 1);
+			RsA_Table[i].OP = " ";
+			RsA_Table[i].Qj = " ";
+			RsA_Table[i].Qk = " ";
+		}
+		return RsA_Table;
+	}</code></pre>
