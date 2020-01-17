@@ -6,8 +6,8 @@
  <br/>  1.允許使用者自行輸入ADD(加)、SUB(減)、MUL(乘)、DIV(除)運作之cycle數
  <br/>  2.目前支援ADD、SUB、MUL、DIV等四項基礎運算，其他運算後續補充之
  <br/>  3.允許使用者由原始碼端自行編輯Instruction數量及上述四項運算之運作
- <br/>  4.完成上述初始狀態輸入後，由Eclipse IDE介面(或任何可執行Java語言之IDE)按下執行鍵，軟體即自行運作至所有Instruction取得暫存器之值後，
- 	自動停止	
+ <br/>  4.完成上述初始狀態輸入後，由Eclipse IDE介面(或任何可執行Java語言之IDE)按下執行鍵，軟體即自行
+ 	運作至所有Instruction取得暫存器之值後，自動停止	
  <br/>  5.本次執行案例系將ADD設為2cycle、SUB設為3cycle、MUL設為4cycle、DIV設為5cycle
  <br/>  6.本軟體共模擬IQ Table儲存指令、RS_ADD_Table設置三個空間大小、RS_MUL設置二個空間大小、Reg Table儲存暫存器實際數值(系統預設值自動採1~10亂	數產生相關資料)、RAT Table、加減法、乘除法 Buffer暫存器各一個，將在下節實際執行結果畫面呈現。
  
@@ -15,6 +15,7 @@
  <br/>  1.允許使用者自行輸入ADD(加)、SUB(減)、MUL(乘)、DIV(除)運作之cycle數
 ![image](1.png "執行結果_1")
  <br/>  2.使用者可由原始碼頁面輸入Instruction指令數量及內容，如新增一筆指令Inst[4] = new Instruction("INST5", "SUB", "F6", "F6", "F10", 0);
+ 
 ![image](3.png "輸入指令畫面_")
  <br/>  3.初始狀態預覽
 ![image](2.png "初始狀態_")
