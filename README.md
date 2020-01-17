@@ -180,8 +180,8 @@ class REGS {
 		System.out.print("請輸入 DIV cycle數 :  ");
 		DIV_cycle = sc.nextInt();
 		System.out.println();</code></pre>
- 
-  <br/>	2. 127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
+		
+#### 2. 127-133行:允許使用者由原始碼頁面輸入指令數量及加減乘除運算，暫存器以F代號開頭+0-9識別，運用Treeset結構，自動算出有哪些暫存器
    <pre><code>
 		Instruction Inst[] = new Instruction[4];
 		Inst[0] = new Instruction("INST1", "MUL", "F3", "F2", "F1", 0);
@@ -189,7 +189,8 @@ class REGS {
 		Inst[2] = new Instruction("INST3", "ADD", "F10", "F1", "F0", 0);
 		Inst[3] = new Instruction("INST4", "DIV", "F6", "F8", "F2", 0);
 		TreeSet RegSet = RegSet(Inst);</code></pre>
- <br/>	3. 137-159行:初始化各類別，如REG Table、RAT Table、RS Table、IQ Table...等
+		
+#### 3. 137-159行:初始化各類別，如REG Table、RAT Table、RS Table、IQ Table...等
    <pre><code>
    		int MulcyCount[] = new int[1];
 
@@ -213,14 +214,16 @@ class REGS {
 		boolean hasnext = true;
 
 		System.out.println("(初始狀態)  Cycel: 0");
-		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>		
-<br/>	4. 161-292行:以do..while運算結構，開始執行演算，說明如後
+		print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);</code></pre>
+		
+#### 4. 161-292行:以do..while運算結構，開始執行演算，說明如後
    <pre><code>
    	do {    程式段.....
 	        ........
 		...........
-		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>		
-<br/>	5. 162-177行:如果buffer有inst在執行的狀況
+		} while (hasNext(hasnext, Inst, RSAdd, RSMul) == true);</code></pre>
+		
+#### 5. 162-177行:如果buffer有inst在執行的狀況
    <pre><code>
    	System.out.println("Cycel: " + cycle);
 	if ((Dispatch_Table[1].buffer.equals("execute")) && (Dispatch_Table[0].buffer.equals("execute"))) { // 如果buffer有inst在執行的狀況，此狀況為ADD Buffer及MUL Buffer同時都為execute狀態
@@ -238,7 +241,8 @@ class REGS {
 	RSMul = dispatch_1(RSMul, Dispatch_Table); // 檢查RS MUL是否可dispatch
 	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 	} </code></pre>
-<br/>	6. 162-177行:如果buffer有inst在執行的狀況，此狀況為ADD Buffer "或" MUL Buffer為execute狀態
+	
+#### 6. 162-177行:如果buffer有inst在執行的狀況，此狀況為ADD Buffer "或" MUL Buffer為execute狀態
  <pre><code>
 	else if ((Dispatch_Table[1].buffer.equals("execute")) || (Dispatch_Table[0].buffer.equals("execute"))) { // 如果buffer有inst在執行的狀況，此狀況為ADD Buffer "或"   MUL Buffer為execute狀態
 		if ((Dispatch_Table[1].buffer.equals("execute"))) { // Dispatch_Table[1].ID = "MUL" , 如果是MUL  Buffer為execute狀態
@@ -257,7 +261,8 @@ class REGS {
 		}
 		cycle = cycle + 1;
 	}</code></pre>
-<br/>	7. 197-214行:Dispatch_Table[0].ID = "ADD" , 如果是ADD Buffer為execute狀態
+	
+#### 7. 197-214行:Dispatch_Table[0].ID = "ADD" , 如果是ADD Buffer為execute狀態
  <pre><code>
 	else if ((Dispatch_Table[0].buffer.equals("execute"))) { // Dispatch_Table[0].ID = "ADD" , 如果是ADD Buffer為execute狀態
 		writeback_2(RSMul, RSAdd, Dispatch_Table, RATTable, RegTable, AddcyCount, cycle, ADD_cycle,SUB_cycle);
@@ -274,7 +279,8 @@ class REGS {
 	      }
 		cycle = cycle + 1;
 	}</code></pre>
-	8. 216-224行:同個cycle可再檢查是否有inst可issue
+	
+#### 8. 216-224行:同個cycle可再檢查是否有inst可issue
  <pre><code>
  if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) { // 同個cycle可再檢查是否有inst可issue
   RSAdd RsAdd[] = issue_2(Inst, RSAdd, RATTable, RegTable);} 
@@ -285,7 +291,8 @@ class REGS {
 	RSMul = dispatch_1(RSMul, Dispatch_Table);
 	print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 }</code></pre>
-	9. 226-264行:ADD及MULTI Buffer均為閒置狀態
+
+#### 9. 226-264行:ADD及MULTI Buffer均為閒置狀態
  <pre><code>
 else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))|| (!(Dispatch_Table[1].state.isBlank()) && (!(Dispatch_Table[1].buffer.equals("execute"))))) { // ADD及MULTI Buffer均為閒置狀態
 	if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.equals("execute"))))&& 	
@@ -321,8 +328,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		}
 			print(RegTable, Inst, RATTable, RSAdd, RSMul, Dispatch_Table);
 		}</code></pre>	
-
-	##### 10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
+##### 10. 265-281行:最後一個狀況，目前狀態僅能作Issue運算
  <pre><code>
 	 else {
 	 	if (Inst[0].op.equals("ADD") || Inst[0].op.equals("SUB")) {
@@ -350,4 +356,25 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			RegSet.add(inst[i].fk);
 		}
 		return RegSet;
+	}</code></pre>
+* ## Method II : RegArray (296~313行)	
+	將上述RegSet轉成RegArray型態，並由編號小到大完成Reg排序
+	<pre><code>
+	public static int[] RegArray(TreeSet RegSet) { // 將RegSet轉成RegArray，並由小到大完成排序
+		Object[] Reg = RegSet.toArray();
+		int tmp;
+		int RegArr[] = new int[Reg.length];
+		for (int i = 0; i < Reg.length; i++) {
+			RegArr[i] = Integer.parseInt(Reg[i].toString().split("F")[1]);
+		}
+		for (int i = RegArr.length - 1; i >= 0; i--) { // 由小到大排序
+			for (int j = 0; j < i; j = j + 1) {
+				if (RegArr[j] > RegArr[i]) {
+					tmp = RegArr[j];
+					RegArr[j] = RegArr[i];
+					RegArr[i] = tmp;
+				}
+			}
+		}
+		return RegArr;
 	}</code></pre>
