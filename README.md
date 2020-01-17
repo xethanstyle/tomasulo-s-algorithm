@@ -732,7 +732,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			}
 		}
 	}</code></pre>
-* ## Method XII :  writeback_2((651~747行)
+* ## Method XIII :  writeback_2((651~747行)
 	計算RSADD已進入Dispatch之指令(含加、減指令)，何時(Cycle)可完成運算，並進入WRITE運算
 	<pre><code>
 	public static void writeback_2(RSMul RsM[], RSAdd RsA[], Dispatch Dispatch_Table[], RAT RATTable[], REGS RegTable[],
@@ -832,7 +832,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 			}
 		}
 	}</code></pre>
-* ## Method XIII :  hasNext((749~776行)
+* ## Method XIV :  hasNext((749~776行)
 	當指令列(Inst),RsA,RsM等Table還有值時，回傳true，用來告知do while指令尚還有指令、Reg未完成運算，繼續執行下一個cycle
 	<pre><code>
 	public static boolean hasNext(boolean hasnext, Instruction Inst[], RSAdd RsA[], RSMul RsM[]) { // 當inst,RsA,RsM等Table還有值時，回傳true
@@ -863,7 +863,7 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		return hasnext;
 
 	}</code></pre>
-* ## Method XIV :  print((778~834行)
+* ## Method XV :  print((778~834行)
 	將每個cycle運算之結果，依Inst、RSAdd、RSMul、Add buffer及Mul buffer等Table完成列印
 	<pre><code>
 	public static void print(REGS RegTable[], Instruction Instruction[], RAT RatTable[], RSAdd RSAddTable[],
@@ -922,6 +922,4 @@ else if ((!(Dispatch_Table[0].state.isBlank()) && (!(Dispatch_Table[0].buffer.eq
 		System.out.println(
 				"==========================================================================================\n");
 			}
-		}
-	}
-}</code></pre>
+		}</code></pre>
